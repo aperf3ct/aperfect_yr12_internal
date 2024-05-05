@@ -1,16 +1,10 @@
-# ask user's name and pet name.
-# present user with options of pet activities e.g. feed, play, quit
-# a function will exectue the activity chosen by the user
-# run a function to check pet's wellbeing
-# if pet is unwell, pet will die
-# if pet is well, pet will live
-
 '''
-26/04/2024
-4:00pm
-
+02/05/2024
+12pm
+working on edit  names function
 '''
-# FUNCTIONs 
+
+# FUNCTIONS
 def feed(weight):
   print("\nWhat woud you like to feed", pet_name, "?")
   print("1. Milk\n2. Biscuits\n3. Meat")
@@ -45,7 +39,7 @@ def feed(weight):
 
 
 def play(weight):
-  print("\nWhat would you like to do with ", pet_name, "?")
+  print("\nWhat would you like to do with", pet_name, "?")
   print("1. Play fetch\n2. Play with a toy\n3. Play with a ball")
   Valid = False
   while not Valid:
@@ -77,41 +71,66 @@ def play(weight):
       print("Please enter a valid number.")
 
 
+def edit_names(pet_name, user_name):
+  print("\nWhat name would you like to change?: ")
+  valid = False
+  while not valid:
+    try:
+      user_input = int(input("1. Pet name\n"
+                             "2. Owner name\n"
+                             "3. Both\n\n"
+                             "Enter your choice: "))
+      if user_input == 1:
+        pet_name = input("Enter new name: ")
+        print("Pet name changed to", pet_name)
+        return pet_name, user_name
+      elif user_input == 2:
+        user_name = input("Enter new name: ")
+        print("Owner name changed to", user_name)
+        return pet_name, user_name
+      elif user_input == 3:
+        pet_name = input("Enter new pet name: ")
+        print("Pet name changed to", pet_name)
+        user_name = input("Enter new owner name: ")
+        print("Owner name changed to", user_name)
+        return pet_name, user_name
+    except ValueError:
+      print("Please enter a valid number.")
+  
+
 def check_wellbeing(weight):
-  if weight < 1:
-    print(pet_name, "didn't eat in a while. They died ):")
-    quit()
-  elif weight > 10:
-    print(pet_name, "ate too much. They died ):")
-    quit()
+  if weight < 1 or weight > 10:
+    print("\n{} has died.".format(pet_name))
+    print(
+    '''
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⣟⣛⣛⡓⠦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⣟⣵⠟⠋⠉⠁⠈⠉⢳⡈⢳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣠⠟⠁⠀⠀⠀⠀⠀⠀⠀⠻⣄⢻⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⠿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⣭⡙⢦⣄⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢰⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡙⣆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠠⡟⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣧⢹⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢰⣧⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠸⡇⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠨⣿⡇⠀⢀⣠⣤⣤⣀⣀⠀⢠⣤⠤⣤⡄⣠⣀⣀⣀⣀⡀⠀⢸⢰⡇⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⣿⡇⠀⢾⢹⠋⠉⠛⣯⢻⡤⢹⡧⡟⠀⣿⣾⠛⠛⢿⣽⣄⣼⢸⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⣿⡇⠀⢸⣼⡄⠀⢀⡾⣸⠇⢸⠀⡇⠀⣿⣿⠀⠀⢸⣿⠏⡏⣼⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⡯⡇⠀⢸⣼⣷⣾⡿⠛⠉⠀⢸ ⡇⠀⣿⣿⣶⣾⠿⠏⠀⣿⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⡇⡇⠀⢸⣿⡟⠻⣿⢦⡀⠀⢠⡧⡇⢀⣿⣿⠀⠀⠀⠀⢠⡏⡏⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⣿⡇⢀⣼⣿⣷⡄⠸⠿⠿⠦⢨⣷⣧⠈⣿⣾⣥⠀⠀⠀⢸⠇⡇⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⡇⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣾⠇⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⢹⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠈⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⢸⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⣰⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣏⣸⡄⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⣴⠃⣿⢷⣄⣀⣀⣀⣀⣄⣄⣤⣤⣤⣤⣤⣤⣤⣤⣤⣄⣤⡿⣹⠙⣆⠀⠀⠀⠀
+    ⠀⠀⢀⡾⠃⠀⠛⠒⠒⠒⠛⠛⠻⠿⠷⠶⠶⠶⠶⠦⠶⠶⠖⠒⠒⠛⠛⠛⠀⠘⣦⠀⠀⠀
+    ⠀⠀⣸⠧⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠶⠾⣷⠀⠀
+    ⠀⠀⠹⣦⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣄⣀⣀⣀⣀⣀⣤⣤⣤⡿⠀⠀
+    
+''')
+
   elif weight < 4:
     print(pet_name, "looks hungry.")
-  elif weight > 7:
-    print(pet_name, "looks full.")
-  elif weight in range (4,8):
-    print(pet_name, "is doing well :)")
-  
-# MAIN PROGRAM
-print('''
- |\_/|    
- (. .)
-  =w= (\  
- / ^ \//  
-(|| ||)
-,""_""_ .
-''')
-
-print('''
-               _ |\_      
-               \` ..\  
-          __,.-" =__Y=
-        ."        )
-  _    /   ,    \/\_  _ 
- ((____|    )_-\ \_-`(_)
- `-----'`-----` `--`
-''')
-
-print('''
+    print('''
 　　　　　／＞　　フ
 　　　　　| 　_　 _ l
 　 　　　／` ミ＿xノ
@@ -119,13 +138,32 @@ print('''
 　　　 /　 ヽ　　 ﾉ
 　 　 │　　| | |
 ''' )
-
-
+  elif weight > 7:
+    print(pet_name, "looks full.")
+    print('''
+　　　　　／＞　　フ
+　　　　　| 　_　 _ l
+　 　　　／` ミ＿xノ
+　　 　 /　　　 　 |
+　　　 /　 ヽ　　 ﾉ
+　 　 │　　| | |
+''' )
+  elif weight in range (4,8):
+    print(pet_name, "is doing well :)")
+    print('''
+     |\_/|    
+     (. .)
+      =w= (\  
+     / ^ \//  
+    (|| ||)
+    ,""_""_ .
+''')
+  
+# MAIN PROGRAM
 print("Welcome to the Pet Simulator!")
 user_name = input("What is your name? ")
 pet_name = input("What would you like to name your pet? ")
 print("Hello {}! Your pet {} is ready for you!".format(user_name, pet_name))
-#add art here
 
 weight = 5
 Valid = False
@@ -146,15 +184,8 @@ while not Valid:
       weight = play(weight)
       check_wellbeing(weight)
     elif menu_input == 3:
-      edit_names()
+      edit_names(pet_name, user_name)
     elif menu_input == 4:
       quit()
   except ValueError:
     print("Please enter a valid number.")
-
-'''
-file = open("pet.txt", "w")
-file.write(user_name + "\n")
-file.write(pet_name)
-file.close()
-'''
