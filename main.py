@@ -1,12 +1,36 @@
 '''
-02/05/2024
-12pm
-working on edit  names function
+08/05/2024
+11am
+edit names function reads from two txt files
 '''
 
 # FUNCTIONS
+def file_write(str):
+  text = open("names.txt", "w")
+  text.write(str)
+  text.close()
+
+
+def file_read():
+  text = open("names.txt", "r")
+  pet_name = text.read()
+  text.close()
+  return pet_name
+
+def owner_write(str):
+  text = open("owner.txt", "w")
+  text.write(str)
+  text.close()
+
+
+def owner_read():
+  text = open("owner.txt", "r")
+  owner_name = text.read()
+  text.close()
+  return owner_name
+
 def feed(weight):
-  print("\nWhat woud you like to feed", pet_name, "?")
+  print("\nWhat would you like to feed {}?".format(file_read()))
   print("1. Milk\n2. Biscuits\n3. Meat")
   Valid = False
   while not Valid:
@@ -19,19 +43,19 @@ def feed(weight):
         if feed_input == 1:
           weight = weight + 1
           print("\nYou fed {} some milk. {} now weighs {}kg.".format(
-            pet_name, pet_name, weight)
+            file_read(), file_read(), weight)
           )
           return weight
         elif feed_input == 2:
           weight = weight + 2
           print("\nYou fed {} some biscuits. {} now weighs {}kg.".format(
-          pet_name, pet_name, weight)  
+            file_read(), file_read(), weight)
           )
           return weight
         elif feed_input == 3:
           weight = weight + 3
           print("\nYou fed {} some Meat. {} now weighs {}kg.".format(
-          pet_name, pet_name, weight)
+            file_read(), file_read(), weight)
           )
           return weight
     except ValueError:
@@ -39,7 +63,7 @@ def feed(weight):
 
 
 def play(weight):
-  print("\nWhat would you like to do with", pet_name, "?")
+  print("\nWhat would you like to do with {}?".format(file_read()))
   print("1. Play fetch\n2. Play with a toy\n3. Play with a ball")
   Valid = False
   while not Valid:
@@ -52,26 +76,26 @@ def play(weight):
         if play_input == 1:
           weight -= 3
           print("\nYou played fetch with {}. {} now weighs {}kg.".format(
-            pet_name, pet_name, weight)
+            file_read(), file_read(), weight)
           )
           return weight
         elif play_input == 2:
           weight -= 2
           print("\nYou played with a toy with {}. {} now weighs {}kg.".format(
-            pet_name, pet_name, weight)
-          )
+        file_read(), file_read(), weight)
+        )
           return weight
         elif play_input == 3:
           weight -= 1
           print("\nYou played with a ball with {}. {} now weighs {}kg.".format(
-              pet_name, pet_name, weight)
-          )
+        file_read(), file_read(), weight)
+        )
           return weight
     except ValueError:
       print("Please enter a valid number.")
 
 
-def edit_names(pet_name, user_name):
+def edit_names(user_name):
   print("\nWhat name would you like to change?: ")
   valid = False
   while not valid:
@@ -82,25 +106,29 @@ def edit_names(pet_name, user_name):
                              "Enter your choice: "))
       if user_input == 1:
         pet_name = input("Enter new name: ")
-        print("Pet name changed to", pet_name)
-        return pet_name, user_name
+        file_write(pet_name)
+        print("\nName changed to", pet_name)
+        valid = True
       elif user_input == 2:
         user_name = input("Enter new name: ")
+        owner_write(user_name)
         print("Owner name changed to", user_name)
-        return pet_name, user_name
+        valid = True
       elif user_input == 3:
         pet_name = input("Enter new pet name: ")
-        print("Pet name changed to", pet_name)
+        file_write(pet_name)
+        print("\nName changed to", pet_name)
         user_name = input("Enter new owner name: ")
-        print("Owner name changed to", user_name)
-        return pet_name, user_name
+        owner_write(user_name)
+        print("\nName changed to", user_name)
+        valid = True
     except ValueError:
       print("Please enter a valid number.")
   
 
 def check_wellbeing(weight):
   if weight < 1 or weight > 10:
-    print("\n{} has died.".format(pet_name))
+    print("\n{} has died.".format(file_read()))
     print(
     '''
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⣟⣛⣛⡓⠦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -127,9 +155,10 @@ def check_wellbeing(weight):
     ⠀⠀⠹⣦⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣄⣀⣀⣀⣀⣀⣤⣤⣤⡿⠀⠀
     
 ''')
-
+    quit()
+  
   elif weight < 4:
-    print(pet_name, "looks hungry.")
+    print("{} looks hungry.".format(file_read()))
     print('''
 　　　　　／＞　　フ
 　　　　　| 　_　 _ l
@@ -139,7 +168,7 @@ def check_wellbeing(weight):
 　 　 │　　| | |
 ''' )
   elif weight > 7:
-    print(pet_name, "looks full.")
+    print("{} looks full.".format(file_read()))
     print('''
 　　　　　／＞　　フ
 　　　　　| 　_　 _ l
@@ -149,7 +178,7 @@ def check_wellbeing(weight):
 　 　 │　　| | |
 ''' )
   elif weight in range (4,8):
-    print(pet_name, "is doing well :)")
+    print("{} is doing well :)".format(file_read()))
     print('''
      |\_/|    
      (. .)
@@ -162,13 +191,15 @@ def check_wellbeing(weight):
 # MAIN PROGRAM
 print("Welcome to the Pet Simulator!")
 user_name = input("What is your name? ")
+owner_write(user_name)
 pet_name = input("What would you like to name your pet? ")
-print("Hello {}! Your pet {} is ready for you!".format(user_name, pet_name))
+file_write(pet_name)
+print("Hello {}! Your pet {} is ready for you!".format(owner_read(), file_read()))
 
 weight = 5
 Valid = False
 while not Valid:
-  print("\nWelcome {}! What would you like to do?".format(user_name))
+  print("\nWelcome {}! What would you like to do?".format(owner_read()))
   print("1. Feed")
   print("2. Play")
   print("3. Edit Names")
@@ -184,7 +215,7 @@ while not Valid:
       weight = play(weight)
       check_wellbeing(weight)
     elif menu_input == 3:
-      edit_names(pet_name, user_name)
+      edit_names(user_name)
     elif menu_input == 4:
       quit()
   except ValueError:
