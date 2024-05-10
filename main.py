@@ -1,7 +1,7 @@
 '''
-09/05/2024
-12pm
-string validation v1
+10/05/2024
+2pm
+string validation in a function v2
 '''
 
 # FUNCTIONS
@@ -28,6 +28,28 @@ def owner_read():
   owner_name = text.read()
   text.close()
   return owner_name
+
+def pet_validation():
+  valid = False
+  while not valid:
+    pet_name = input("\nWhat would you like to name your pet? ")
+    if len(pet_name) < 1 or len(pet_name) > 20:
+      print("\nPlease enter a valid name. ")
+    else:
+      pet_write(pet_name)
+      print("Your pet {} is ready for you!".format(pet_read()))
+      valid = True
+
+def owner_validation():
+  valid = False
+  while not valid:
+    owner_name = input("\nWhat is your name? ")
+    if len(owner_name) < 1 or len(owner_name) > 20:
+      print("\nPlease enter a valid name. ")
+    else:
+      owner_write(owner_name)
+      print("Your name is {}!".format(owner_read()))
+      valid = True
 
 def feed(weight):
   print("\nWhat would you like to feed {}?".format(pet_read()))
@@ -105,51 +127,15 @@ def edit_names():
                              "3. Both\n\n"
                              "Enter your choice: "))
       if user_input == 1:
-        while not valid:
-          pet_name = input("Enter new name: ")
-          if len(pet_name) < 1 or len(pet_name) > 20:
-            print("\nPlease enter a valid name.")
-          else:
-            pet_write(pet_name)
-            print("\nName changed to", pet_name)
-            valid = True
-      elif user_input == 2:
-        while not valid:
-          user_name = input("Enter new name: ")
-          if len(user_name) < 1 or len(user_name) > 20:
-            owner_write(user_name)
-            print("Owner name changed to", user_name)
-            valid = True
-      elif user_input == 3:
-        pet = False
-        owner = False
-        while not pet:
-          pet_name = input("Enter new pet name: ")
-          if len(pet_name) < 1 or len(pet_name) > 20:
-            print("\nPlease enter a valid name.")
-          else:
-            pet_write(pet_name)
-            print("\nName changed to", pet_name)
-            pet = True
-        while not owner:
-          user_name = input("Enter new owner name: ")
-          if len(user_name) < 1 or len(user_name) > 20:
-            print("\n Please enter a valid name.")
-          else:
-            owner_write(user_name)
-            print("\nName changed to", user_name)
-            owner = True
-            valid = True 
-        
-        '''
-        pet_name = input("Enter new pet name: ")
-        pet_write(pet_name)
-        print("\nName changed to", pet_name)
-        user_name = input("Enter new owner name: ")
-        owner_write(user_name)
-        print("\nName changed to", user_name)
+        pet_validation()
         valid = True
-        '''
+      elif user_input == 2:
+        owner_validation()
+        valid = True
+      elif user_input == 3:
+        pet_validation()
+        owner_validation()
+        valid = True
       else:
         print("\nPlease enter a valid number.")
     except ValueError:
@@ -220,25 +206,8 @@ def check_wellbeing(weight):
 
 # MAIN PROGRAM
 print("Welcome to the Pet Simulator!")
-valid = False
-while not valid:
-  user_name = input("What is your name? ")
-  if len(user_name) < 1 or len(user_name) > 20:
-    print("\nPlease enter a valid name.")
-  else:
-    owner_write(user_name)
-    print("Hello {}!".format(owner_read()))
-    valid = True
-
-valid = False
-while not valid:
-  pet_name = input("What would you like to name your pet? ")
-  if len(pet_name) < 1 or len(pet_name) > 20:
-    print("\nPlease enter a valid name. ")
-  else:
-    pet_write(pet_name)
-    print("Your pet {} is ready for you!".format(pet_read()))
-    valid = True
+pet_validation()
+owner_validation()
 
 weight = 5
 Valid = False
