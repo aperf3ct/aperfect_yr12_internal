@@ -1,7 +1,7 @@
 '''
-10/05/2024
-2pm
-string validation in a function v2
+16/05/2024
+11am
+string validation in one function v3
 '''
 
 # FUNCTIONS
@@ -29,27 +29,17 @@ def owner_read():
   text.close()
   return owner_name
 
-def pet_validation():
-  valid = False
-  while not valid:
-    pet_name = input("\nWhat would you like to name your pet? ")
-    if len(pet_name) < 1 or len(pet_name) > 20:
-      print("\nPlease enter a valid name. ")
-    else:
-      pet_write(pet_name)
-      print("Your pet {} is ready for you!".format(pet_read()))
-      valid = True
 
-def owner_validation():
+def input_validation(prompt, write_function, read_function, info_message):
   valid = False
   while not valid:
-    owner_name = input("\nWhat is your name? ")
-    if len(owner_name) < 1 or len(owner_name) > 20:
-      print("\nPlease enter a valid name. ")
-    else:
-      owner_write(owner_name)
-      print("Your name is {}!".format(owner_read()))
-      valid = True
+      user_input = input(prompt)
+      if len(user_input) < 1 or len(user_input) > 20:
+          print("\nPlease enter a valid name.")
+      else:
+          write_function(user_input)
+          print(info_message.format(read_function()))
+          valid = True
 
 def feed(weight):
   print("\nWhat would you like to feed {}?".format(pet_read()))
@@ -127,14 +117,28 @@ def edit_names():
                              "3. Both\n\n"
                              "Enter your choice: "))
       if user_input == 1:
-        pet_validation()
+        input_validation(
+          "\nWhat would you like to name your pet? ",
+          pet_write, pet_read,
+          "Your pet {} is ready for you!"
+        )
         valid = True
       elif user_input == 2:
-        owner_validation()
+        input_validation(
+          "\nWhat is your name? ", owner_write, owner_read,
+          "Your name is {}!"
+        )
         valid = True
       elif user_input == 3:
-        pet_validation()
-        owner_validation()
+        input_validation(
+          "\nWhat would you like to name your pet? ",       
+          pet_write, pet_read,
+          "Your pet {} is ready for you!"
+        )
+        input_validation(
+          "\nWhat is your name? ", owner_write, owner_read,
+          "Your name is {}!"
+        )
         valid = True
       else:
         print("\nPlease enter a valid number.")
@@ -206,8 +210,14 @@ def check_wellbeing(weight):
 
 # MAIN PROGRAM
 print("Welcome to the Pet Simulator!")
-pet_validation()
-owner_validation()
+input_validation(
+  "\nWhat would you like to name your pet? ", pet_write, pet_read,
+  "Your pet {} is ready for you!"
+)
+input_validation(
+  "\nWhat is your name? ", owner_write, owner_read,
+  "Your name is {}!"
+)
 
 weight = 5
 Valid = False
